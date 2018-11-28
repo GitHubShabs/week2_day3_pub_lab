@@ -37,7 +37,7 @@ def test_customer_buys_drink
   # Act
   # drink.drink_price
   # customer.wallet
-  customer.customer_buys_drink(drink)
+  customer.buys_drink(drink)
   # Assert
   assert_equal(98.00, customer.wallet)
 end
