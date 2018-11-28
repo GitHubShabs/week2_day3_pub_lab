@@ -8,8 +8,8 @@ class CustomerTest < MiniTest::Test
 
 def setup
 
-  @customer1 = Customer.new("Begbie", 0.00)
-  @customer2 = Customer.new("Mark Renton", 100.00)
+  @customer1 = Customer.new("Begbie", 0.00, 57)
+  @customer2 = Customer.new("Mark Renton", 100.00, 21)
 
   @drink1 = Drink.new("Tequila", 2.00)
 
@@ -30,6 +30,10 @@ def test_customer_has_wallet__has_money
   assert_equal(100.00, @customer2.wallet)
 end
 
+def test_customer_has_age
+  assert_equal(21, @customer2.age)
+end
+
 def test_customer_buys_drink
   # Arrange
   customer = @customer2
@@ -41,6 +45,7 @@ def test_customer_buys_drink
   # Assert
   assert_equal(98.00, customer.wallet)
 end
+
 
 
 
