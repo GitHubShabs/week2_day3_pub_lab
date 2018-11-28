@@ -11,14 +11,15 @@ class PubTest < MiniTest::Test
 
 
   def setup
-    @drink1 = Drink.new("Tequila", 2.00)
+    @drink1 = Drink.new("Tequila", 2.00, 1)
     @drink_arr1 = [@drink1]
 
     @pub1 = Pub.new("CodeBar", 1000.00, @drink_arr1)
     @pub2 = Pub.new("CodeBar", 0.00, [])
 
-    @customer1 = Customer.new("Begbie", 0.00, 15)
-    @customer2 = Customer.new("Mark Renton", 100.00, 21)
+    @customer1 = Customer.new("Begbie", 0.00, 15, 50)
+    @customer2 = Customer.new("Mark Renton", 100.00, 21, 0)
+    @customer3 = Customer.new("Rab C Nesbitt", 100.00, 30, 10)
 
   end
 
@@ -38,7 +39,7 @@ class PubTest < MiniTest::Test
     assert_equal(1, @pub1.drinks_cabinet.length)
   end
 
-  def test_pub_sells_drink__of_age
+  def test_pub_sells_drink__of_age__sober
     #Arrange
     pub = @pub1
     drink = @drink1
@@ -49,6 +50,20 @@ class PubTest < MiniTest::Test
     #Assert
     assert_equal(1002.00, pub.till)
     assert_equal(0, pub.drinks_cabinet.length)
+  end
+
+  def test_pub_sells_drink__of_age__not_sober
+    #Arrange
+    pub = @pub1
+    drink = @drink1
+    customer = @customer3
+    #Act
+    #pub sells drink
+    pub.sells_drink(drink, customer)
+    #Assert
+    assert_equal(1000.00, pub.till)
+    assert_equal(1, pub.drinks_cabinet.length)
+    assert_equal("Not again Rab!", pub.sells_drink(@drink1, @customer3))
   end
 
   def test_pub_sells_drink__under_age
@@ -64,6 +79,8 @@ class PubTest < MiniTest::Test
     assert_equal(1, pub.drinks_cabinet.length)
     assert_equal("Get out my pub child or I'll call the police!!!", pub.sells_drink(@drink1, @customer1))
   end
+
+
 
 
 

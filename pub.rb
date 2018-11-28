@@ -26,9 +26,13 @@ end
 
 def sells_drink(drink, customer)
   if customer.age >= 18
-    found_drink = @drinks_cabinet.delete(drink)
-    @till += found_drink.drink_price
-    customer.buys_drink(found_drink)
+    if customer.drunkeness <= 4
+       found_drink = @drinks_cabinet.delete(drink)
+       @till += found_drink.drink_price
+       customer.buys_drink(found_drink)
+    else
+      return "Not again Rab!"
+    end
   else
     return "Get out my pub child or I'll call the police!!!"
   end
