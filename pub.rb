@@ -9,9 +9,6 @@ def initialize(pub_name, till, drinks_cabinet = [])
   @drinks_cabinet = drinks_cabinet
 end
 
-
-
-
 # def pub_name
 #   @pub_name
 # end
@@ -24,8 +21,10 @@ end
 #   @drinks_cabinet
 # end
 
-def sells_drink(drink)
-  return @till += drink.drink_price
+def sells_drink(drink, customer)
+  found_drink = @drinks_cabinet.delete(drink)
+  @till += found_drink.drink_price
+  customer.buys_drink(drink)
 
 
 end

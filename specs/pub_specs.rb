@@ -11,10 +11,13 @@ class PubTest < MiniTest::Test
 
 
   def setup
-    @pub1 = Pub.new("CodeBar", 1000.00, [])
+    @drink1 = Drink.new("Tequila", 2.00)
+
+    @pub1 = Pub.new("CodeBar", 1000.00, [@drink1])
     @pub2 = Pub.new("CodeBar", 0.00, [])
 
-    @drink1 = Drink.new("Tequila", 2.00)
+    @customer2 = Customer.new("Mark Renton", 100.00)
+
   end
 
   def test_pub_name
@@ -30,18 +33,20 @@ class PubTest < MiniTest::Test
   end
 
   def test_pub_has_drinks
-    assert_equal([], @pub1.drinks_cabinet)
+    assert_equal([@drink1], @pub1.drinks_cabinet)
   end
 
   def test_pub_sells_drink
     #Arrange
     pub = @pub1
     drink = @drink1
+    customer = @customer2
     #Act
     #pub sells drink
-    pub.sells_drink(drink)
+    pub.sells_drink(drink, customer)
     #Assert
     assert_equal(1002.00, pub.till)
+    assert_equal([], pub.drinks_cabinet)
 
   end
 
